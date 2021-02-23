@@ -1,5 +1,8 @@
 package com.codeclan.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,10 +23,20 @@ public class File {
     @Column(name = "size")
     private int size;
 
-    public File(String name, String extension, int size) {
+    @JsonIgnoreProperties(value = "files")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    @ManyToOne
+    @JoinColumn(name = "folder_id", nullable = false)
+    private Folder folder;
+
+    public File(String name, String extension, int size, Folder folder) {
         this.name = name;
         this.extension = extension;
+        this.folder = folder;
         this.size = size;
+    }
+
+    public File() {
     }
 
     public Long getId() {
@@ -56,5 +69,13 @@ public class File {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Folder getFolder() {
+        return folder;
+    }
+
+    public void setFolder(Folder folder) {
+        this.folder = folder;
     }
 }

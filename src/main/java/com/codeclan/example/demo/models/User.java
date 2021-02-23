@@ -1,6 +1,11 @@
 package com.codeclan.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -13,8 +18,17 @@ public class User {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnoreProperties(value = "user")
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
+    @OneToMany(mappedBy = "user")
+    private List<Folder> folders;
+
     public User(String name) {
         this.name = name;
+        this.folders = new ArrayList<>();
+    }
+
+    public User() {
     }
 
     public Long getId() {
@@ -31,5 +45,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Folder> getFolders() {
+        return folders;
+    }
+
+    public void setFolders(List<Folder> folders) {
+        this.folders = folders;
     }
 }
