@@ -27,43 +27,29 @@ public class DataLoader implements ApplicationRunner {
     }
 
     public void run(ApplicationArguments args){
-        User user1 = new User("Paul Wishart");
-        userRepository.save(user1);
-        User user2 = new User("Natalie Weir");
-        userRepository.save(user2);
+        User rza = new User("RZA");
+        userRepository.save(rza);
 
-        Folder folder1 = new Folder("Applications", user1);
-        folderRepository.save(folder1);
+        User method = new User("Method Man");
+        userRepository.save(method);
 
-        Folder folder2 = new Folder("Documents", user1);
-        folderRepository.save(folder2);
+        Folder films = new Folder("Films", rza);
+        folderRepository.save(films);
 
-        Folder folder3 = new Folder("Images", user1);
-        folderRepository.save(folder3);
+        Folder downloads = new Folder("Downloads", method);
+        folderRepository.save(downloads);
 
-        Folder folder4 = new Folder("Movies", user2);
-        folderRepository.save(folder4);
+        Folder music = new Folder("Music", rza);
+        folderRepository.save(music);
 
-        Folder folder5 = new Folder("Music", user2);
-        folderRepository.save(folder5);
+        File album = new File("Liquid Swords", ".mp3", 500, music);
+        fileRepository.save(album);
 
-        File file1 = new File("IntelliJ", ".app", 123000, folder1);
-        fileRepository.save(file1);
+        File film = new File("Five Deadly Venoms", ".mov", 18000, films);
+        fileRepository.save(film);
 
-        File file2 = new File("Atom", ".app", 12000, folder1);
-        fileRepository.save(file2);
-
-        File file3 = new File("CV", ".word", 238, folder2);
-        fileRepository.save(file3);
-
-        File file4 = new File("Split", ".mov", 23800000, folder4);
-        fileRepository.save(file4);
-
-        File file5 = new File("Glass", ".mpeg", 23700000, folder4);
-        fileRepository.save(file5);
-
-        File file6 = new File("Computer Love", ".mp3", 12800, folder5);
-        fileRepository.save(file6);
+        File app = new File("Job Application", ".pdf", 10, downloads);
+        fileRepository.save(app);
 
     }
 }
